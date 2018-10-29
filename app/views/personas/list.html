@@ -1,0 +1,18 @@
+﻿<table>
+    <tr>
+        <th>Nombre</th>
+        <td>
+            <a href="#!/personas/add">Añadir</a>
+            <a href="#!/personas">Actualizar</a>
+        </td>
+    </tr>
+    <tr ng-repeat="item in vm.listado">
+        <td><a href="#!/personas/{{item.id}}/{{item.nombre}}/{{item.apellidos}}">
+            {{item.nombre}} {{item.apellidos}}
+        </a></td>
+        <td>
+            <a href="#!/personas/{{item.id}}/edit">Editar</a>
+            <input type="button" value="Borrar" ng-click="vm.delete(item.id)">
+        </td>
+    </tr>
+</table>

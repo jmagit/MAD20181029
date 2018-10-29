@@ -1,0 +1,50 @@
+﻿<form name="miForm">
+    <p>
+        Código:
+        <span ng-if="vm.modo === 'add'">
+            <input type="text" id="id" name="id" ng-model="vm.elemento.id"
+                   required val-integer>
+            <span class="error" ng-show="miForm.id.$error.required && miForm.$dirty">
+                Es obligatorio.
+            </span>
+            <span class="error" ng-show="miForm.id.$error.valInteger">
+                Tiene que ser un número.
+            </span>
+        </span>
+        <span ng-if="vm.modo !== 'add'">
+            {{vm.elemento.id}}
+        </span>
+        <br />
+        Nombre:
+        <input type="text" id="nombre" name="nombre" ng-model="vm.elemento.nombre"
+               required ng-minlength="2" ng-maxlength="10">
+        <span class="error" ng-show="miForm.nombre.$error.required">
+            Es obligatorio.
+        </span>
+        <span class="error" ng-show="miForm.nombre.$error.minlength || miForm.nombre.$error.maxlength">
+            Debe tener entre 2 y 10 letras.
+        </span>
+        <br />
+        Apellidos:
+        <input type="text" id="apellidos" name="apellidos" ng-model="vm.elemento.apellidos"
+               ng-minlength="2" ng-maxlength="10" val-upper-case>
+        <span class="error" ng-show="miForm.apellidos.$error.minlength || miForm.apellidos.$error.maxlength">
+            Debe tener entre 2 y 10 letras.
+        </span>
+        <span class="error" ng-show="miForm.apellidos.$error.valUpperCase">
+            Tiene que estar en mayusculas.
+        </span>
+        <br />
+        Edad:
+        <input type="number" id="edad" name="edad" ng-model="vm.elemento.edad"
+               min="18" max="67">
+        <span class="error" ng-show="miForm.edad.$error.min || miForm.edad.$error.max">
+            Debe estar entre los 18 y 67 letras.
+        </span>
+    </p>
+    <p>
+        <input type="button" value="Enviar" ng-click="vm.send()"
+               ng-disabled="miForm.$invalid">
+        <input type="button" value="Volver" ng-click="vm.cancel()">
+    </p>
+</form>

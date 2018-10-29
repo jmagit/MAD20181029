@@ -8,6 +8,21 @@
     <title>Curso de Angular Expertos</title>
 </head>
 <body ng-controller="PrincipalController as app">
+    <div ng-controller="NotificationController as vm">
+        <div class="notificaciones" ng-if="vm.notify.hayMensajes">
+            <ul>
+                <li ng-repeat="item in vm.notify.listado">
+                    {{item | initcap}}
+                    <button type="button" ng-click="vm.notify.remove($index)">X</button>
+                </li>
+            </ul>
+            <p class="center">
+                <input type="button" value="Cerra"
+                       ng-click="vm.notify.clear()">
+            </p>
+        </div>
+    </div>
+
     <p>
         <input type="text" ng-model="app.nombre">
         <input type="button" value="Saluda" ng-click="app.saluda()">
@@ -17,9 +32,11 @@
     <!-- Frameworks Terceros -->
     <script src="vendor/angular/angular.js"></script>
     <script src="vendor/angular/i18n/angular-locale_es-es.js"></script>
+    <script src="vendor/angular/angular-route.js"></script>
 
     <!-- Mi código -->
     <script src="js/my-core.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/personas.js"></script>
 </body>
 </html>
