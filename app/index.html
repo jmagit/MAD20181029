@@ -8,6 +8,7 @@
     <title>Curso de Angular Expertos</title>
 </head>
 <body ng-controller="PrincipalController as app">
+    <ng-include src="'views/notification.html'"></ng-include>
     <p>
         <a href="#!/">inicio</a>&nbsp;|&nbsp;
         <a href="#!/como/me/de/la/gana.html">larga</a>&nbsp;|&nbsp;
@@ -17,15 +18,15 @@
     </p>
     <div ng-view></div>
 
-    <!-- <ng-include src="'views/notification.html'"></ng-include> -->
     <p>
         <input type="text" ng-model="app.nombre">
         <input type="button" value="Saluda" ng-click="app.saluda()">
         <input type="button" value="Notifica" ng-click="app.notify.add('Esto es una notificacion.')">
         <input type="button" value="Cambia" ng-click="app.cambia()">
     </p>
-    <p class="anima" ng-show="app.visible">{{app.resultado | capitalice}}</p>
-
+   <p ng-bind-html="app.resultado"></p>
+    <!-- <p class="anima" ng-show="app.visible">{{app.resultado | capitalice}}</p> -->
+ 
     <script type="text/ng-template" id="views/notification.html">
         <div ng-controller="NotificationController as vm">
             <div class="notificaciones" ng-if="vm.notify.hayMensajes">
@@ -48,6 +49,7 @@
     <script src="vendor/angular/angular-route.js"></script>
     <script src="vendor/angular/angular-animate.js"></script>
     <script src="vendor/angular/angular-route.js"></script>
+    <script src="vendor/angular/angular-sanitize.js"></script>
 
     <!-- Mi código -->
     <script src="js/my-core.js"></script>

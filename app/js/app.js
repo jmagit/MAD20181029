@@ -1,4 +1,4 @@
-angular.module("MyApp", ["MyCore", "ngAnimate", "ngRoute"]);
+angular.module("MyApp", ["MyCore", "ngAnimate", "ngRoute", "ngSanitize"]);
 
 angular.module("MyApp").config(['$routeProvider',  function($routeProvider) {
     $routeProvider
@@ -29,6 +29,21 @@ angular.module("MyApp").config(['$routeProvider',  function($routeProvider) {
       .otherwise({
         template: '<h1>404 Page not found</h1>'
       });
+}]);
+angular.module("MyApp").config(['$httpProvider', function ($httpProvider) {
+    $httpProvider.interceptors.push(["$q", "AuthService", function ($q, auth) {
+        return {
+            'request': function (config) {
+                var v = auth.isAutenticated();
+                if (config.withCredentials && auth.isAutenticated())
+                    config.headers['Authorization'] = auth.AuthorizationHeader();
+                return config;
+            },
+            'requestError': function(rejection) { return $q.reject(rejection); },
+            'response': function (response) { return response; },
+            'responseError': function(rejection) { return $q.reject(rejection); },
+        };
+    }]);
 }]);
 
 angular.module("MyApp").controller("PrincipalController", [
