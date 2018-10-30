@@ -1,4 +1,35 @@
-angular.module("MyApp", ["MyCore", "ngAnimate"]);
+angular.module("MyApp", ["MyCore", "ngAnimate", "ngRoute"]);
+
+angular.module("MyApp").config(['$routeProvider',  function($routeProvider) {
+    $routeProvider
+      .when('/', {
+        templateUrl: 'views/home.html'
+      })
+      .when('/como/me/de/la/gana.html', {
+        templateUrl: 'views/home.html'
+      })
+      .when('/personas', {
+        templateUrl: 'views/personas/list.html', controller: 'PersonasController', controllerAs: 'vm'
+      })
+      .when('/personas/add', {
+        templateUrl: 'views/personas/form.html', controller: 'PersonasController', controllerAs: 'vm'
+      })
+      .when('/personas/:id/edit', {
+        templateUrl: 'views/personas/form.html', controller: 'PersonasController', controllerAs: 'vm'
+      })
+      .when('/personas/:id', {
+        templateUrl: 'views/personas/view.html', controller: 'PersonasController', controllerAs: 'vm'
+      })
+      .when('/personas/:id/:kk*', {
+        templateUrl: 'views/personas/view.html', controller: 'PersonasController', controllerAs: 'vm'
+      })
+      .when('/pepito/grillo', {
+        redirectTo: '/personas/2'
+      })
+      .otherwise({
+        template: '<h1>404 Page not found</h1>'
+      });
+}]);
 
 angular.module("MyApp").controller("PrincipalController", [
   "auth", "NotificationService",
