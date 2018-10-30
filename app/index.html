@@ -8,27 +8,30 @@
     <title>Curso de Angular Expertos</title>
 </head>
 <body ng-controller="PrincipalController as app">
-    <div ng-controller="NotificationController as vm">
-        <div class="notificaciones" ng-if="vm.notify.hayMensajes">
-            <ul>
-                <li ng-repeat="item in vm.notify.listado">
-                    {{item | initcap}}
-                    <button type="button" ng-click="vm.notify.remove($index)">X</button>
-                </li>
-            </ul>
-            <p class="center">
-                <input type="button" value="Cerra"
-                       ng-click="vm.notify.clear()">
-            </p>
-        </div>
-    </div>
-
+    <ng-include src="'views/notification.html'"></ng-include>
     <p>
         <input type="text" ng-model="app.nombre">
         <input type="button" value="Saluda" ng-click="app.saluda()">
+        <input type="button" value="Notifica" ng-click="app.notify.add('Esto es una notificacion.')">
     </p>
-    <p>{{app.resultado}}</p>
+    <p>{{app.resultado | capitalice}}</p>
 
+    <script type="text/ng-template" id="views/notification.html">
+        <div ng-controller="NotificationController as vm">
+            <div class="notificaciones" ng-if="vm.notify.hayMensajes">
+                <ul>
+                    <li ng-repeat="item in vm.notify.listado">
+                        {{item | capitalice}}
+                        <button type="button" ng-click="vm.notify.remove($index)">X</button>
+                    </li>
+                </ul>
+                <p class="center">
+                    <input type="button" value="Cerra"
+                        ng-click="vm.notify.clear()">
+                </p>
+            </div>
+        </div>
+    </script>
     <!-- Frameworks Terceros -->
     <script src="vendor/angular/angular.js"></script>
     <script src="vendor/angular/i18n/angular-locale_es-es.js"></script>

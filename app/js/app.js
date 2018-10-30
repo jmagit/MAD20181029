@@ -1,13 +1,14 @@
 angular.module("MyApp", ["MyCore"]);
 
 angular.module("MyApp").controller("PrincipalController", [
-  "auth",
-  function(srv) {
+  "auth", "NotificationService",
+  function(srv, notify) {
     var vm = this;
 
     vm.nombre = "mundo";
     vm.resultado = "";
     vm.auth = srv;
+    vm.notify = notify;
 
     vm.saluda = function() {
       vm.resultado = "Hola " + vm.nombre;
