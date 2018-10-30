@@ -13,8 +13,9 @@
         <input type="text" ng-model="app.nombre">
         <input type="button" value="Saluda" ng-click="app.saluda()">
         <input type="button" value="Notifica" ng-click="app.notify.add('Esto es una notificacion.')">
+        <input type="button" value="Cambia" ng-click="app.cambia()">
     </p>
-    <p>{{app.resultado | capitalice}}</p>
+    <p class="anima" ng-show="app.visible">{{app.resultado | capitalice}}</p>
 
     <script type="text/ng-template" id="views/notification.html">
         <div ng-controller="NotificationController as vm">
@@ -36,6 +37,7 @@
     <script src="vendor/angular/angular.js"></script>
     <script src="vendor/angular/i18n/angular-locale_es-es.js"></script>
     <script src="vendor/angular/angular-route.js"></script>
+    <script src="vendor/angular/angular-animate.js"></script>
 
     <!-- Mi código -->
     <script src="js/my-core.js"></script>

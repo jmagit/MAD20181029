@@ -1,4 +1,4 @@
-angular.module("MyApp", ["MyCore"]);
+angular.module("MyApp", ["MyCore", "ngAnimate"]);
 
 angular.module("MyApp").controller("PrincipalController", [
   "auth", "NotificationService",
@@ -7,6 +7,7 @@ angular.module("MyApp").controller("PrincipalController", [
 
     vm.nombre = "mundo";
     vm.resultado = "";
+    visible = true;
     vm.auth = srv;
     vm.notify = notify;
 
@@ -16,6 +17,7 @@ angular.module("MyApp").controller("PrincipalController", [
     vm.despide = function() {
       vm.resultado = "Adios " + vm.nombre;
     };
+    vm.cambia = function() { vm.visible = !vm.visible; }
   }
 ]);
 
