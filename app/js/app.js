@@ -8,7 +8,10 @@ angular.module("MyApp").config(['$routeProvider',  function($routeProvider) {
       .when('/como/me/de/la/gana.html', {
         templateUrl: 'views/home.html'
       })
-      .when('/personas', {
+      .when('/calculadora', {
+        template: '<calc></calc>'
+      })
+     .when('/personas', {
         templateUrl: 'views/personas/list.html', controller: 'PersonasController', controllerAs: 'vm'
       })
       .when('/personas/add', {
@@ -111,6 +114,14 @@ angular.module('MyApp').factory('NotificationService', ['$log', function ($log) 
       hayMensajes: false,
   };
 }]);
+angular.module('MyApp').component('appNotification', {
+	templateUrl : 'views/notification.html',
+	controller : ['NotificationService', function (srv) {
+        this.notify = srv;
+      }],
+	controllerAs : 'vm',
+	bindings : { init : '<', onUpdate : '&'}
+});
 
 angular.module('MyApp').factory('AuthService', ['$log', function ($log) {
   var isAuth = true;

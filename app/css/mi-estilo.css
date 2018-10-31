@@ -65,3 +65,49 @@ form .ng-invalid-parse {
 .anima.ng-hide {
 	height: 0;
 }
+/* Calculadora *****************************************************/
+.Calculadora {
+	background-color: #e6f3ff;
+	border-style: outset;
+	padding: 6px;
+}
+
+.Pantalla {
+	background-color: #004000;
+	color: yellow;
+	border-style: inset;
+	padding: 4px;
+	font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.btnDigito {
+	color: navy;
+	width: 100%;
+	font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.btnOperar {
+	color: red;
+	width: 100%;
+	font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.tab-pane {
+	border: 1px solid black;
+	background-color: steelblue;
+	padding: 5px;
+}
+.tab-active {
+	border-top-left-radius: 5pt;
+	border-top-right-radius: 5pt;
+	background-color: steelblue;
+	color: white;
+	padding: 5pt;
+}
+.tab-inactive {
+	border-top-left-radius: 5pt;
+	border-top-right-radius: 5pt;
+	background-color: skyblue;
+	color: white;
+	padding: 5pt;
+}

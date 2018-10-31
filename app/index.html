@@ -8,13 +8,15 @@
     <title>Curso de Angular Expertos</title>
 </head>
 <body ng-controller="PrincipalController as app">
-    <ng-include src="'views/notification.html'"></ng-include>
+    <!-- <ng-include src="'views/notification.html'"></ng-include> -->
+    <app-notification></app-notification>
     <p>
         <a href="#!/">inicio</a>&nbsp;|&nbsp;
         <a href="#!/como/me/de/la/gana.html">larga</a>&nbsp;|&nbsp;
         <a href="#!/personas">personas</a>&nbsp;|&nbsp;
         <a href="#!/pepito/grillo">pepito</a>&nbsp;|&nbsp;
         <a href="#!/otra/ruta">falsa</a>&nbsp;|&nbsp;
+        <a href="#!/calculadora">calculadora</a>&nbsp;|&nbsp;
     </p>
     <div ng-view></div>
 
@@ -27,8 +29,9 @@
    <p ng-bind-html="app.resultado"></p>
     <!-- <p class="anima" ng-show="app.visible">{{app.resultado | capitalice}}</p> -->
  
+    <my-card titulo="Hola mundo">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum, consequuntur perspiciatis. Reiciendis sed, non quam modi, aliquam repudiandae cumque fugit corrupti maiores quaerat facilis debitis, eos quae reprehenderit consectetur nihil!</my-card>
     <script type="text/ng-template" id="views/notification.html">
-        <div ng-controller="NotificationController as vm">
+        <div>
             <div class="notificaciones" ng-if="vm.notify.hayMensajes">
                 <ul>
                     <li ng-repeat="item in vm.notify.listado">

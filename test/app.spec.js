@@ -1,4 +1,4 @@
-describe("Pruebas MyApp", function() {
+xdescribe("Pruebas MyApp", function() {
   it("Demo funciona", function() {
     expect(true).toBeTruthy();
   });
@@ -50,14 +50,14 @@ describe("Pruebas MyApp", function() {
       expect(srv.usuario).toBe("(vacio)");
     });
     it("Sin usuario", function() {
-        srv.login('pepito', 'admin');
-        expect(srv.usuario).toBe("pepito");
-        expect(srv.nivel).toBe("admin");
-      });
+      srv.login("pepito", "admin");
+      expect(srv.usuario).toBe("pepito");
+      expect(srv.nivel).toBe("admin");
     });
+  });
 });
 
-describe("Pruebas MyCore", function() {
+xdescribe("Pruebas MyCore", function() {
   describe("Pruebas de filtros", function() {
     describe("Filtro: capitalice", function() {
       beforeEach(module("MyCore"));
@@ -82,6 +82,59 @@ describe("Pruebas MyCore", function() {
       it("Un numero", function() {
         expect(filtro("1234")).toBe("1234");
       });
+    });
+  });
+});
+
+fdescribe("Pruebas de validaciones", function() {
+  var $compile, $rootScope;
+  beforeEach(module("MyCore"));
+  beforeEach(inject(function(_$compile_, _$rootScope_) {
+    $compile = _$compile_;
+    $rootScope = _$rootScope_;
+  }));
+  function getCompiledElement(template, scope) {
+    var compiledDirective = $compile(angular.element(template))(scope);
+    scope.$digest();
+    return compiledDirective;
+  }
+  describe("Directiva: valInteger", function() {
+    var scope, input;
+    beforeEach(inject(function() {
+      scope = $rootScope.$new();
+      scope.test = "123456";
+      var directiveElem = getCompiledElement(
+        '<form name="miForm"><input type="text" name="test" ng-model="test" val-integer /></form>',
+        scope
+      );
+      input = scope.miForm.test;
+    }));
+    it("valido", function() {
+      var esValido = function(value) {
+        input.$setViewValue(value);
+        scope.$digest();
+        expect(scope.miForm.$valid).toBeTruthy();
+        expect(input.$valid).toBeTruthy();
+        expect(input.$error.valInteger).toBeUndefined();
+      };
+      esValido("");
+      esValido("0");
+      esValido("-12");
+      esValido("1234");
+    });
+    it("invalido", function() {
+      var noEsValido = function(value) {
+        input.$setViewValue(value);
+        scope.$digest();
+        expect(scope.miForm.$valid).toBeFalsy();
+        expect(input.$valid).toBeFalsy();
+        expect(input.$error.valInteger).toBeTruthy();
+      };
+      noEsValido("abc");
+      noEsValido("1,5");
+      noEsValido("1.5");
+      noEsValido("1+1");
+      //expect(function() { noEsValido(1234); }).toThrow();
     });
   });
 });
