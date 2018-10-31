@@ -85,6 +85,23 @@ xdescribe("Pruebas MyCore", function() {
     });
   });
 });
+fdescribe('Pruebas de directivas', function () {
+  var $compile, $rootScope;
+
+  beforeEach(module('MyCore'));
+
+  beforeEach(inject(function (_$compile_, _$rootScope_) {
+      $compile = _$compile_;
+      $rootScope = _$rootScope_;
+  }));
+
+  it('Reemplaza el elemento con el contenido apropiado', function () {
+      var scope = $rootScope.$new();
+      var element = $compile('<div><input type="text" lbl-title="Nombre"></div>')($rootScope);
+      $rootScope.$digest();
+      expect(element.html()).toContain('<label>Nombre: <input type="text"></label>');
+  });
+});
 
 fdescribe("Pruebas de validaciones", function() {
   var $compile, $rootScope;
@@ -136,5 +153,42 @@ fdescribe("Pruebas de validaciones", function() {
       noEsValido("1+1");
       //expect(function() { noEsValido(1234); }).toThrow();
     });
+  });
+  describe("Directiva: valNif", function() {
+    var scope, input;
+    beforeEach(inject(function() {
+      scope = $rootScope.$new();
+      scope.test = "123456";
+      var directiveElem = getCompiledElement(
+        '<form name="miForm"><input type="text" name="test" ng-model="test" val-nif /></form>',
+        scope
+      );
+      input = scope.miForm.test;
+    }));
+    it("valido", function() {
+      var esValido = function(value) {
+        input.$setViewValue(value);
+        scope.$digest();
+        expect(scope.miForm.$valid).toBeTruthy();
+        expect(input.$valid).toBeTruthy();
+        expect(input.$error.valNif).toBeUndefined();
+      };
+      esValido("");
+      esValido("12345678Z");
+      esValido("12345678z");
+    });
+    it("invalido", function() {
+      var noEsValido = function(value) {
+        input.$setViewValue(value);
+        scope.$digest();
+        expect(scope.miForm.$valid).toBeFalsy();
+        expect(input.$valid).toBeFalsy();
+        expect(input.$error.valNif).toBeTruthy();
+      };
+      noEsValido("Z12345678");
+      noEsValido("12345678A");
+      noEsValido("1234");
+      noEsValido("A");
+     });
   });
 });

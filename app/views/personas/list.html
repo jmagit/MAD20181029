@@ -12,7 +12,7 @@
         </a></td>
         <td>
             <a href="#!/personas/{{item.id}}/edit">Editar</a>
-            <input type="button" value="Borrar" ng-click="vm.delete(item.id)">
+            <input type="button" value="Borrar" confirm="vm.delete(item.id)">
         </td>
     </tr>
 </table>

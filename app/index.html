@@ -21,9 +21,9 @@
     <div ng-view></div>
 
     <p>
-        <input type="text" ng-model="app.nombre">
-        <input type="button" value="Saluda" ng-click="app.saluda()">
-        <input type="button" value="Notifica" ng-click="app.notify.add('Esto es una notificacion.')">
+        <input lbl-title="Nombre" class="kk" type="text" ng-model="app.nombre">
+        <input type="button" value="Saluda" ng-click="app.saluda()" >
+        <input type="button" value="Notifica" confirm="app.notify.add('Esto es una notificacion.')">
         <input type="button" value="Cambia" ng-click="app.cambia()">
     </p>
    <p ng-bind-html="app.resultado"></p>
